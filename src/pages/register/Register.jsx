@@ -2,8 +2,75 @@ import { Helmet } from "react-helmet-async";
 import Footer from "../../shared/footer/Footer";
 import Navbar from "../../shared/navbar/Navbar";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
+import Swal from "sweetalert2";
 
 const Register = () => {
+  const { createUserWithEmail } = useContext(AuthContext);
+
+//   // success message
+  const handleLoginSuccess = () => {
+    Swal.fire({
+      title: "Registered successfully!",
+      showClass: {
+        popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+      },
+      hideClass: {
+        popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+      },
+    });
+  };
+
+//   //   error message
+  const handleLoginError = (error) => {
+    Swal.fire({
+      title: { error },
+      showClass: {
+        popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+      },
+      hideClass: {
+        popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+      },
+    });
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target; 
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
+    const displayName = form.elements.name.value;
+    const photoURL = form.elements.photoURL.value;
+
+    console.log("clicked",   email, password, displayName, photoURL);
+    createUserWithEmail(email, password, displayName, photoURL)
+    .then(result => {
+        console.log(result.user)
+        handleLoginSuccess()
+    })
+    .catch(error => {
+        console.log(error.message)
+        handleLoginError(error.message)
+    })
+  };
+
   return (
     <div>
       <Helmet>
@@ -14,7 +81,7 @@ const Register = () => {
         <div className="hero min-h-screen bg-base-100">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="card shrink-0 w-full   shadow-2xl bg-base-100">
-              <form className="card-body">
+              <form onSubmit={handleRegister} className="card-body ">
                 <div className="lg:flex lg:gap-4 md:flex md:gap-4">
                   <div>
                     {/* name */}
@@ -23,6 +90,7 @@ const Register = () => {
                         <span className="label-text">Name</span>
                       </label>
                       <input
+                        name="name"
                         type="text"
                         placeholder="Name"
                         className="input input-bordered"
@@ -35,6 +103,7 @@ const Register = () => {
                         <span className="label-text">Email</span>
                       </label>
                       <input
+                        name="email"
                         type="email"
                         placeholder="Email"
                         className="input input-bordered"
@@ -49,6 +118,7 @@ const Register = () => {
                         <span className="label-text">Photo URL</span>
                       </label>
                       <input
+                        name="photoURL"
                         type="text"
                         placeholder="Photo URL"
                         className="input input-bordered"
@@ -61,6 +131,7 @@ const Register = () => {
                         <span className="label-text">Password</span>
                       </label>
                       <input
+                        name="password"
                         type="password"
                         placeholder="password"
                         className="input input-bordered"
@@ -75,7 +146,9 @@ const Register = () => {
                   </div>
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary">Register</button>
+                  <button className="btn btn-primary">
+                    Register
+                  </button>
                 </div>
               </form>
               <p className=" mb-3 px-8 block text-center">
