@@ -3,22 +3,22 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   const links = (
     <>
-      <NavLink className='lg:mr-2 p-2 lg:bg-slate-800 lg:rounded-lg'>
+      <NavLink to='/' className='lg:mr-2 p-2 lg:bg-slate-800 lg:rounded-lg'>
         <li>
         Home
         </li>
       </NavLink>
-      <NavLink className='lg:mr-2 p-2 lg:bg-slate-800 lg:rounded-lg'>
+      <NavLink to='/allTouristsSpot' className='lg:mr-2 p-2 lg:bg-slate-800 lg:rounded-lg'>
         <li>
         All Tourists Spot
         </li>
       </NavLink>
-      <NavLink className='lg:mr-2 p-2 lg:bg-slate-800 lg:rounded-lg'>
+      <NavLink to='/addTouristsSpot' className='lg:mr-2 p-2 lg:bg-slate-800 lg:rounded-lg'>
         <li>
         Add Tourists Spot
         </li>
       </NavLink>
-      <NavLink className=' p-2 lg:bg-slate-800 lg:rounded-lg'>
+      <NavLink to='/myList' className=' p-2 lg:bg-slate-800 lg:rounded-lg'>
         <li>
          My List
         </li>
@@ -60,8 +60,8 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 ">{links}</ul>
         </div>
         <div className="navbar-end">
-          <NavLink className=" mr-2 p-2 bg-slate-800 rounded-lg">Login</NavLink>
-          <NavLink className=" p-2 bg-slate-800 rounded-lg">Register</NavLink>
+          <NavLink to='/login' className=" mr-2 p-2 bg-slate-800 rounded-lg">Login</NavLink>
+          <NavLink to='/register' className=" p-2 bg-slate-800 rounded-lg">Register</NavLink>
         </div>
       </div>
     </div>
