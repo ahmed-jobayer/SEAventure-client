@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Footer from "../../shared/footer/Footer";
 import Navbar from "../../shared/navbar/Navbar";
+import Swal from "sweetalert2";
 
 const AddTouristsSpot = () => {
   const handleAddTouristsSpot = (e) => {
@@ -17,8 +18,7 @@ const AddTouristsSpot = () => {
     const total_visitors_per_year = form.total_visitors_per_year.value;
     const user_email = form.user_email.value;
     const user_name = form.user_name.value;
-
-    console.log(
+    const newTouristSpot = {
       image,
       tourists_spot_name,
       country_name,
@@ -29,9 +29,29 @@ const AddTouristsSpot = () => {
       travel_time,
       total_visitors_per_year,
       user_email,
-      user_name
+      user_name,
+    };
 
-    );
+    console.log(newTouristSpot);
+    // send data to server
+    fetch("http://localhost:5000/touristSpots", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newTouristSpot),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if(data.insertedId){
+            Swal.fire({
+                title: "Success",
+                text: "New Tourist Spot Added successfully",
+                icon: "success",
+              });
+        }
+      });
   };
 
   return (
