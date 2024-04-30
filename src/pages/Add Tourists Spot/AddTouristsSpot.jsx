@@ -50,7 +50,9 @@ const AddTouristsSpot = () => {
                 text: "New Tourist Spot Added successfully",
                 icon: "success",
               });
+              form.reset()
         }
+        
       });
   };
 
@@ -62,10 +64,10 @@ const AddTouristsSpot = () => {
       <div className="container mx-auto">
         <Navbar></Navbar>
         <div className="hero min-h-screen bg-base-200 ">
-          <div className="card shrink-0 md:w-5/6 lg:w-3/4  shadow-2xl bg-base-100">
+          <div className="card shrink-0 md:w-5/6 lg:w-3/4  shadow-2xl bg-base-100 my-8">
             <form
               onSubmit={handleAddTouristsSpot}
-              className="card-body  w-full"
+              className="card-body  w-full "
             >
               <div className="flex flex-col md:grid grid-cols-2 gap-3">
                 <div className="form-control">
