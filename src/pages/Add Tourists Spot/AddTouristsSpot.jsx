@@ -34,7 +34,7 @@ const AddTouristsSpot = () => {
 
     console.log(newTouristSpot);
     // send data to server
-    fetch("http://localhost:5000/touristSpots", {
+    fetch("https://sea-ventures-server.vercel.app/touristSpots", {
       method: "POST",
       headers: {
         "content-type": "application/json",

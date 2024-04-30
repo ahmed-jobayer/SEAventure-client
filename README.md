@@ -1,8 +1,9 @@
-# React + Vite
+website name : SEAventure
+website link: https://seaventures-b18da.web.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+website features:
+1. its a Tourism Management website
+2. you will need login access to access the important data
+3. User can sign up with 3 different method like email, google and github
+4.  userinfo will not be disappear after refreshing the page.
+5. informations are upgradeable

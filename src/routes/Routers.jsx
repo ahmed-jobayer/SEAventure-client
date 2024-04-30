@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {
         path: "/allTouristsSpot",
         element: <AllTouristsSpot></AllTouristsSpot>,
-        loader: () => fetch('http://localhost:5000/touristSpots')
+        loader: () => fetch('https://sea-ventures-server.vercel.app/touristSpots')
       },
       {
         path: "/addTouristsSpot",
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       {
         path: "/viewDetails/:id",
         element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/touristSpots/${params.id}`)
+        loader: ({params}) => fetch(`https://sea-ventures-server.vercel.app/touristSpots/${params.id}`)
       },
       {
         path: "*",
