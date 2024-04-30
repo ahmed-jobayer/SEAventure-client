@@ -34,7 +34,7 @@ const AddTouristsSpot = () => {
 
     console.log(newTouristSpot);
     // send data to server
-    fetch("https://sea-ventures-server.vercel.app/touristSpots", {
+    fetch("http://localhost:5000/touristSpots", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -45,6 +45,9 @@ const AddTouristsSpot = () => {
       .then((data) => {
         console.log(data);
         if(data.insertedId){
+
+          
+
             Swal.fire({
                 title: "Success",
                 text: "New Tourist Spot Added successfully",
