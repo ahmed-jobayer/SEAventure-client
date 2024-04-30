@@ -7,6 +7,7 @@ import MyList from "../pages/My List/MyList";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Error from "../pages/error/Error";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,11 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addTouristsSpot",
-        element: <AddTouristsSpot></AddTouristsSpot>,
+        element: <PrivateRoute><AddTouristsSpot></AddTouristsSpot></PrivateRoute>,
       },
       {
         path: "/myList",
-        element: <MyList></MyList>,
+        element: <PrivateRoute><MyList></MyList></PrivateRoute>,
       },
       {
         path: "*",

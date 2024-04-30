@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Footer from "../../shared/footer/Footer";
 import Navbar from "../../shared/navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import { useContext } from "react";
@@ -9,8 +9,10 @@ import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const { googleLogin, githubLogin } = useContext(AuthContext);
-  
+  const { googleLogin, githubLogin, emailLogin } = useContext(AuthContext);
+  const location = useLocation()
+  const navigate = useNavigate()
+
 // success message
   const handleLoginSuccess = () => {
     Swal.fire({
@@ -35,7 +37,7 @@ const Login = () => {
 //   error message
   const handleLoginError = error => {
     Swal.fire({
-      title: {error},
+      title: error,
       showClass: {
         popup: `
             animate__animated
@@ -53,12 +55,32 @@ const Login = () => {
     });
   };
 
+  const handleEmailLogin = (e) => {
+    e.preventDefault()
+    const form = e.target;
+    const email = form.email.value
+    const password = form.password.value
+    emailLogin(email, password)
+    .then((result ) => {
+        console.log(result)
+        handleLoginSuccess()
+        // navigate after login
+        navigate(location?.state ? location.state : '/')
+    })
+    .catch((error) => {
+        console.log(error.message)
+        handleLoginError(error.message)
+    })
+  }
+
   const handleGoogleLogin = (e) => {
     e.preventDefault();
     googleLogin()
       .then((Result) => {
         console.log(Result.user);
         handleLoginSuccess()
+        // navigate after login
+        navigate(location?.state ? location.state : '/')
       })
       .catch((error) => {
         console.log(error.message);
@@ -72,6 +94,8 @@ const Login = () => {
       .then((Result) => {
         console.log(Result.user);
         handleLoginSuccess()
+        // navigate after login
+        navigate(location?.state ? location.state : '/')
       })
       .catch((error) => {
         console.log(error.message);
@@ -89,13 +113,14 @@ const Login = () => {
         <div className="hero min-h-screen bg-base-100">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form className="card-body">
+              <form onSubmit={handleEmailLogin} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input
                     type="email"
+                    name="email"
                     placeholder="email"
                     className="input input-bordered"
                     required
@@ -106,6 +131,7 @@ const Login = () => {
                     <span className="label-text">Password</span>
                   </label>
                   <input
+                  name="password"
                     type="password"
                     placeholder="password"
                     className="input input-bordered"

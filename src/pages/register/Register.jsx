@@ -1,16 +1,18 @@
 import { Helmet } from "react-helmet-async";
 import Footer from "../../shared/footer/Footer";
 import Navbar from "../../shared/navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUserWithEmail } = useContext(AuthContext);
+  const location = useLocation()
+  const navigate = useNavigate()
 
 //   // success message
-  const handleLoginSuccess = () => {
+  const handleRegisterSuccess = () => {
     Swal.fire({
       title: "Registered successfully!",
       showClass: {
@@ -31,9 +33,9 @@ const Register = () => {
   };
 
 //   //   error message
-  const handleLoginError = (error) => {
+  const handleRegisterError = (error) => {
     Swal.fire({
-      title: { error },
+      title:  error ,
       showClass: {
         popup: `
             animate__animated
@@ -58,16 +60,33 @@ const Register = () => {
     const password = form.elements.password.value;
     const displayName = form.elements.name.value;
     const photoURL = form.elements.photoURL.value;
+    // console.log("clicked",   email, password, displayName, photoURL);
+    // password validation
 
-    console.log("clicked",   email, password, displayName, photoURL);
+    if (password.length < 6) {
+        handleRegisterError("Password should be at least 6 characters or longer");
+        return;
+      }
+  
+      else if(!/[A-Z]/.test(password)){
+        handleRegisterError('Your password should have at lest one uppercase characters')
+          return
+      }
+      else if(!/[a-z]/.test(password)){
+        handleRegisterError('Your password should have at lest one lowercase characters')
+          return
+      }
+
     createUserWithEmail(email, password, displayName, photoURL)
     .then(result => {
         console.log(result.user)
-        handleLoginSuccess()
+        handleRegisterSuccess()
+        // navigate after register
+        navigate(location?.state ? location.state : '/')
     })
     .catch(error => {
         console.log(error.message)
-        handleLoginError(error.message)
+        handleRegisterError(error.message)
     })
   };
 
