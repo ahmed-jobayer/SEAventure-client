@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
+
 const TouristSpotCard = ({ touristSpot }) => {
   const {
+    _id,
     image,
     tourists_spot_name,
     average_cost,
@@ -28,9 +31,11 @@ const TouristSpotCard = ({ touristSpot }) => {
               </p>
             </div>
           </div>
-          <div className="card-actions justify-center">
-            <button className="btn btn-primary">View Details</button>
+         <Link to={`/viewDetails/${_id}`}>
+         <div className="card-actions justify-center">
+            <button  className="btn btn-primary">View Details</button>
           </div>
+         </Link>
         </div>
       </div>
     </div>
