@@ -21,10 +21,10 @@ const githubProvider = new GithubAuthProvider();
 // email password login
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const createUserWithEmail = (email, password, displayName, photoURL) => {
-    setLoading(true)
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         return updateProfile(userCredential.user, {
@@ -39,25 +39,25 @@ const AuthProviders = ({ children }) => {
 
   //   email password login
   const emailLogin = (email, password) => {
-    setLoading(true)
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   //   google login
   const googleLogin = () => {
-    setLoading(true)
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   //   github login
   const githubLogin = () => {
-    setLoading(true)
+    setLoading(true);
     return signInWithPopup(auth, githubProvider);
   };
 
   //
   const logut = () => {
-    setLoading(true)
+    setLoading(true);
     return signOut(auth);
   };
 
@@ -65,14 +65,25 @@ const AuthProviders = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("user in auth", currentUser);
       setUser(currentUser);
-      setLoading(false)
+      setLoading(false);
     });
     return () => {
       unSubscribe();
     };
   }, []);
 
- 
+  // save add spots id to ls
+  const saveInsertedIdToLocalStorage = (insertedId) => {
+    try {
+      let ids = JSON.parse(localStorage.getItem('insertedIds')) || [];
+      ids.push(insertedId);
+      localStorage.setItem('insertedIds', JSON.stringify(ids));
+      console.log('Inserted ID saved to local storage.');
+    } catch (error) {
+      console.error('Error saving inserted ID to local storage:', error);
+    }
+  };
+
   const authInfo = {
     googleLogin,
     githubLogin,
@@ -81,7 +92,7 @@ const AuthProviders = ({ children }) => {
     logut,
     user,
     loading,
-    
+    saveInsertedIdToLocalStorage,
   };
 
   return (

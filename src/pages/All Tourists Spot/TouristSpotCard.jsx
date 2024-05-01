@@ -15,7 +15,7 @@ const TouristSpotCard = ({ touristSpot }) => {
     <div className="flex items-center justify-center">
       <div className="card card-compact w-96 bg-base-100 shadow-xl ">
         <figure>
-          <img src={image} alt={tourists_spot_name} />
+          <img className="w-full" src={image} alt={tourists_spot_name} />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{tourists_spot_name}</h2>

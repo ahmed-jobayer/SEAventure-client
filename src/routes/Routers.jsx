@@ -9,6 +9,7 @@ import Register from "../pages/register/Register";
 import Error from "../pages/error/Error";
 import PrivateRoute from "./PrivateRoute";
 import ViewDetails from "../pages/view details/ViewDetails";
+import UpdatePage from "../pages/update page/UpdatePage";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:5000/defultTouristSpots')
+        loader: () => fetch('https://sea-ventures-server.vercel.app/defultTouristSpots')
       },
       {
         path: "/login",
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/allTouristsSpot",
         element: <AllTouristsSpot></AllTouristsSpot>,
-        loader: () => fetch('http://localhost:5000/touristSpots')
+        loader: () => fetch('https://sea-ventures-server.vercel.app/touristSpots')
       },
       {
         path: "/addTouristsSpot",
@@ -40,12 +41,17 @@ const router = createBrowserRouter([
       {
         path: "/myList",
         element: <PrivateRoute><MyList></MyList></PrivateRoute>,
-        loader: () => fetch('http://localhost:5000/touristSpots')
+        loader: () => fetch('https://sea-ventures-server.vercel.app/touristSpots')
       },
       {
         path: "/viewDetails/:id",
         element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/touristSpots/${params.id}`)
+        loader: ({params}) => fetch(`https://sea-ventures-server.vercel.app/touristSpots/${params.id}`)
+      },
+      {
+        path: "/touristSpots/:id",
+        element: <PrivateRoute><UpdatePage></UpdatePage></PrivateRoute>,
+        loader: ({params}) => fetch(`https://sea-ventures-server.vercel.app/touristSpots/${params.id}`)
       },
       {
         path: "*",

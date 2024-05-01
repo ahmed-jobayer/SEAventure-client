@@ -19,6 +19,7 @@ const Home = () => {
       <div className="container mx-auto">
         <Navbar></Navbar>
         <Slider></Slider>
+        
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto my-8 ">
           {defaultSpot.map((touristSpot) => (
             <TouristSpotCard
